@@ -77,3 +77,8 @@ decode<-function(m,a,b)
 }
 # m is a character string of the encrypted message
 # a and b are the keys that were use to encrypt it
+
+setcode("Hello world", 14,18)
+decode(readme, 14, 18)
+# or
+decode("Tqfny oozbb", 14, 18)
