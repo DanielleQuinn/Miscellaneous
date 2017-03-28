@@ -11,7 +11,7 @@
 ### M = number of total marked fish available for capture at the beginning of the capture event
 ## cival: confidence level, default is 0.95; range between 0.01 and 0.99
 
-confint_mod<-function(cmrtable, cival=0.95)
+confint_mod<-function(poptable, cival=0.95)
 {
 myrecaps<-sum(poptable$m)
 numerator<-sum(poptable$n*poptable$M)
