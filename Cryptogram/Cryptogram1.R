@@ -1,25 +1,19 @@
 # Shifting Substitution Cipher #
 # DQ #
-# Updated Sept 22, 2015 #
+# Updated January 25, 2018 #
+
+# these updates make things more efficient but slightly less robust; for example, text will be converted to lowercase
 
 setcode<-function(m,a,b)
 {
   alpha<-letters[c((a+1):length(letters),1:(a))]
-  ALPHA<-LETTERS[c((a+1):length(LETTERS),1:(a))]
-    m.vec<-c()
-  output<-c()
-  for(i in 1:nchar(m)){ m.vec.in<-substr(m,start=i, stop=i)
-    m.vec<-c(m.vec,m.vec.in)}
-  for(i in 1:length(m.vec)){
-    if(m.vec[i] %in% letters){ output.in<-letters[which(alpha==m.vec[i])]
-      output<-c(output, output.in)
-      alpha<-alpha[c((b+1):length(alpha),1:(b))]}
-    if(m.vec[i] %in% LETTERS){ output.in<-LETTERS[which(ALPHA==m.vec[i])]
-      output<-c(output, output.in)
-      ALPHA<-ALPHA[c((b+1):length(ALPHA),1:(b))]}
-    if(!m.vec[i] %in% c(letters, LETTERS)){output.in<-m.vec[i]
-      output<-c(output,output.in)}}
-  readme<<-paste(output, collapse='')
+  m.vec<-strsplit(tolower(m),"")[[1]]
+  for(i in which(m.vec %in% letters))
+  {
+    m.vec[i]<-letters[which(alpha==m.vec[i])]
+    alpha<-alpha[c((b+1):length(alpha),1:(b))]
+  }
+  readme<<-paste(m.vec, collapse='')
   return(readme)
 }
 
@@ -29,36 +23,13 @@ setcode<-function(m,a,b)
 decode<-function(m,a,b)
 {
   alpha<-letters[c((length(letters)-(a-1)):length(letters),1:(length(letters)-a))]
-  ALPHA<-LETTERS[c((length(LETTERS)-(a-1)):length(LETTERS),1:(length(LETTERS)-a))]
-  
-  m.vec<-c()
-  output<-c()
-  for(i in 1:nchar(m))
+  m.vec<-strsplit(tolower(m),"")[[1]]
+  for(i in which(m.vec %in% letters))
   {
-    m.vec.in<-substr(m,start=i, stop=i)
-    m.vec<-c(m.vec,m.vec.in)
+    m.vec[i]<-letters[which(alpha==m.vec[i])]
+    alpha<-alpha[c((length(alpha)-(b-1)):length(alpha),1:(length(alpha)-b))]      
   }
-  for(i in 1:length(m.vec))
-  {
-    if(m.vec[i] %in% letters)
-    {
-      output.in<-letters[which(alpha==m.vec[i])]
-      output<-c(output, output.in)
-      alpha<-alpha[c((length(alpha)-(b-1)):length(alpha),1:(length(alpha)-b))]      
-    }
-    if(m.vec[i] %in% LETTERS)
-    {
-      output.in<-LETTERS[which(ALPHA==m.vec[i])]
-      output<-c(output, output.in)
-      ALPHA<-ALPHA[c((length(ALPHA)-(b-1)):length(ALPHA),1:(length(ALPHA)-b))]      
-    }
-    if(!m.vec[i] %in% c(letters, LETTERS))
-    {
-      output.in<-m.vec[i]
-      output<-c(output,output.in)
-    }
-  }
-  readme<<-paste(output, collapse='')
+  readme<<-paste(m.vec, collapse='')
   return(readme)
 }
 # m is a character string of the encrypted message
