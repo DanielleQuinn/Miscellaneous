@@ -11,7 +11,7 @@ df <- data.frame(species_id = c("A", "B", "C", "A", "C", "A", "B", "C"),
 
 df
 
-# I want to find the most common common name for each species and populate a column with that value
+# I want to find the most frequently listed common name for each species and populate a column with that value for each record
 
 find_common <- function(input) {
   df %>%
